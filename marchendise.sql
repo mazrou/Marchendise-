@@ -25,6 +25,7 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+
 -- Table structure for table `client`
 --
 
@@ -40,6 +41,7 @@ CREATE TABLE `client` (
 -- --------------------------------------------------------
 
 --
+
 -- Table structure for table `marchendise`
 --
 
@@ -55,6 +57,7 @@ CREATE TABLE `marchendise` (
   `id_client` int(128) NOT NULL,
   `id_transportatuer` int(128) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 
 -- --------------------------------------------------------
 
@@ -98,12 +101,14 @@ CREATE TABLE `transportateur` (
 --
 
 --
+
 -- Indexes for table `client`
 --
 ALTER TABLE `client`
   ADD PRIMARY KEY (`id`);
 
 --
+
 -- Indexes for table `marchendise`
 --
 ALTER TABLE `marchendise`
@@ -112,6 +117,7 @@ ALTER TABLE `marchendise`
   ADD KEY `id_transportatuer` (`id_transportatuer`);
 
 --
+
 -- Indexes for table `trajet`
 --
 ALTER TABLE `trajet`
@@ -126,22 +132,26 @@ ALTER TABLE `transportateur`
   ADD PRIMARY KEY (`id`);
 
 --
+
 -- AUTO_INCREMENT for dumped tables
 --
 
 --
+
 -- AUTO_INCREMENT for table `client`
 --
 ALTER TABLE `client`
   MODIFY `id` int(128) NOT NULL AUTO_INCREMENT;
 
 --
+
 -- AUTO_INCREMENT for table `marchendise`
 --
 ALTER TABLE `marchendise`
   MODIFY `id` int(128) NOT NULL AUTO_INCREMENT;
 
 --
+
 -- AUTO_INCREMENT for table `trajet`
 --
 ALTER TABLE `trajet`
@@ -154,6 +164,7 @@ ALTER TABLE `transportateur`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
+
 -- Constraints for dumped tables
 --
 
@@ -164,13 +175,15 @@ ALTER TABLE `marchendise`
   ADD CONSTRAINT `marchendise_ibfk_1` FOREIGN KEY (`id_client`) REFERENCES `client` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `marchendise_ibfk_2` FOREIGN KEY (`id_transportatuer`) REFERENCES `transportateur` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
+
 --
 -- Constraints for table `trajet`
 --
 ALTER TABLE `trajet`
   ADD CONSTRAINT `trajet_ibfk_1` FOREIGN KEY (`id_transportatuer`) REFERENCES `transportateur` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `trajet_ibfk_2` FOREIGN KEY (`id_client`) REFERENCES `client` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
-COMMIT;
+
+
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
