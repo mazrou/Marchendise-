@@ -8,27 +8,22 @@ class UserModel extends AbstractModel
 {
     private $id;
     private $nom;
-    private $prenom;
-    private $password;
+    private $mot_de_passe;
     private $email;
-    private $phone;
+    private $telephone;
     private $adresse;
-    private $blocker = false;
-    private $suppimer = false;
+    
+
     private static $conn;
 
     protected static $tableName = 'client';
     protected static $tableSchema = array(
         'id' => self::DATA_TYPE_INT,
         'nom' => self::DATA_TYPE_STR,
-        'prenom' => self::DATA_TYPE_STR,
-        'password' => self::DATA_TYPE_STR,
+        'mot_de_passe' => self::DATA_TYPE_STR,
         'email' => self::DATA_TYPE_STR,
-        'phone' => self::DATA_TYPE_INT,
+        'telephone' => self::DATA_TYPE_INT,
         'adresse' => self::DATA_TYPE_STR,
-        'blocker' => self::DATA_TYPE_STR,
-        'suprimer' => self::DATA_TYPE_INT,
-
     );
 
     protected static $primaryKey = 'id';
@@ -47,11 +42,10 @@ class UserModel extends AbstractModel
             $this->supprimer = (boolean) $row['supprimer'];
         } else {
             $this->nom = $row[0];
-            $this->prenom = $row[1];
-            $this->adresse = $row[2];
-            $this->phone = $row[3];
-            $this->email = $row[4];
-            $this->password = sha1($row[5]);
+            $this->adresse = $row[1];
+            $this->$telephone = $row[2];
+            $this->email = $row[3];
+            $this->mot_de_passe = sha1($row[4]);
         }
 
     }
@@ -83,16 +77,14 @@ class UserModel extends AbstractModel
 
     public function create()
     {
-
         self::getConnection();
-        $sql = 'INSERT INTO client (nom,prenom,adresse,phone,email,password,blocker,suprimer)   VALUES (?,?,?,?,?,?,false,false)';
+        $sql = 'INSERT INTO client (nom,adresse,telephone,email,mot_de_passe)   VALUES (?,?,?,?,?)';
         $stmt = self::$conn->prepare($sql);
         $obj = array($this->nom,
-            $this->prenom,
             $this->adresse,
-            $this->phone,
+            $this->$telephone,
             $this->email,
-            $this->password,
+            $this->mot_de_passe,
         );
         if ($stmt->execute($obj)) {
             $this->{static::$primaryKey} = DatabaseHandler::factory()->lastInsertId();
@@ -114,7 +106,7 @@ class UserModel extends AbstractModel
 
         if ($count == 1 && !empty($row)) {
             return $row;
-        }
+        } 
         return false;
     }
 

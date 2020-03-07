@@ -22,37 +22,18 @@ class UserController extends AbstractController
 
     public function addAction()
     {
-        /*  if(isset($_POST['submit']))
-        {
-        $user=new UserModel();
-        $user->nom=$_POST['nom'];
-        $user->prenom=$_POST['prename'];
-        $user->email=$_POST['mail'];
-        $user->password=$_POST['psw'];
-        $user->phone=$_POST['tel'];
-        if($user->save()){
-
-        $_SESSION['message']='registred successfully';
-        $this->redirect('/web/public/index');
-
-        }
-        //  var_dump($_POST);
-        }
-        $this->_view();*/
         if (isset($_POST['regester'])) {
             $obj = array(
-                $_POST['nom'],
-                $_POST['prenom'],
+                $_POST['nom']." ".$_POST['prenom'],
                 $_POST['adresse'],
                 $_POST['phone'],
                 $_POST['email'],
                 $_POST['password'],
             );
-            $traduction = new UserModel($obj, false);
-            
-           if($traduction->create())
-            $this->redirect('/web/public/');
-
+            $client = new UserModel($obj, false);
+          
+            if($client->create())
+                $this->redirect('/web/public/');
         }
         $this->_view();
 
