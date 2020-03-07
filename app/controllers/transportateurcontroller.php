@@ -20,8 +20,8 @@ class TransportateurController extends AbstractController
         if (isset($_POST['login'])) {
             $result = TransportateurModel::authenticate($_POST['email'], $_POST['password']);
             if ($result) {
-                $traducteur = new TransportateurModel($result);
-                $_SESSION['Transportateur'] = [$traducteur];
+                $transportateur = new TransportateurModel($result);
+                $_SESSION['Transportateur'] = [$transportateur];
                 $this->redirect('/web/public/index');
             } else {
                 $this->redirect('/web/public/transportateur/connexion');
