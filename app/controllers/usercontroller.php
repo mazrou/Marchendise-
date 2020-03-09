@@ -5,6 +5,7 @@ namespace PHPMVC\controllers;
 session_start();
 use PDO;
 use PHPMVC\LIB\Helper;
+use PHPMVC\Model\MarchendiseModel;
 use PHPMVC\Model\UserModel;
 
 class UserController extends AbstractController
@@ -13,9 +14,25 @@ class UserController extends AbstractController
     use Helper;
     public function defaultAction()
     {
-        $user = UserModel::getAll();
-        foreach ($user as $us) {
-            var_dump($us);
+        if(isset($_POST["ajouter"])){
+           $obj = array(
+               $_POST["discription"],
+               $_POST["lieu-depart"],
+               $_POST["lieu-arrive"],
+               $_POST["photos"],
+               $_POST["demmande-speaciale"],
+               $_POST["volume"].$_POST["cat-volum"],
+               $_POST["poid"].$_POST["cat-poid"],
+               $_SESSION["client"][0]->getId(),
+               $_POST["date-depart"],
+               $_POST["date-arrive"],
+              
+           );
+           $marchendise = new MarchendiseModel($obj, false) ; 
+
+           if($marchendise->create()){
+             
+           }
         }
         $this->_view();
     }
@@ -47,16 +64,10 @@ class UserController extends AbstractController
             $result = UserModel::authenticate($_POST['email'], $_POST['password']);
             if ($result) {
                 $client = new UserModel($result);
-                $_SESSION['client_id'] = $client->getID();
-                $_SESSION['client_nom'] = $client->getNom();
-                $_SESSION['client_prenom'] = $client->getPrenom();
-                $_SESSION['client_email'] = $client->getEmail();
-                $_SESSION['client_phone'] = $client->getPhone();
-                $_SESSION['client_adresse'] = $client->getAdresse();
-
-                $this->redirect('/web/public/index/client');
+                $_SESSION['client'] = [$client];   
+                $this->redirect('/web/public/user');
             } else {
-                // $this->redirect('/web/public/index');
+                 $this->redirect('/web/public/user/connexion');
             }
         }
         $this->_view();

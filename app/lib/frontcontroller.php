@@ -43,7 +43,6 @@ class FrontController
     {
         $controllerClassName = 'PHPMVC\Controllers\\' . ucfirst($this->_controller) . 'Controller';
         $actionName = $this->_action . 'Action';
-
         if(!class_exists($controllerClassName) ) {
             $controllerClassName = self::NOT_FOUND_CONTROLLER;
         }

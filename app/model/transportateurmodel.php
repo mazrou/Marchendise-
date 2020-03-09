@@ -191,4 +191,134 @@ class TransportateurModel extends AbstractModel
                 SELECT * FROM ' . self::$tableName . ' WHERE Username = "' . $username . '"
             ');
     }
+
+    /**
+     * @return mixed
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param mixed $id
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
+
+    /**
+     * @return mixed|string
+     */
+    public function getNom()
+    {
+        return $this->nom;
+    }
+
+    /**
+     * @param mixed|string $nom
+     */
+    public function setNom($nom)
+    {
+        $this->nom = $nom;
+    }
+
+    /**
+     * @return string
+     */
+    public function getMotDePasse()
+    {
+        return $this->mot_de_passe;
+    }
+
+    /**
+     * @param string $mot_de_passe
+     */
+    public function setMotDePasse($mot_de_passe)
+    {
+        $this->mot_de_passe = $mot_de_passe;
+    }
+
+    /**
+     * @return mixed|string
+     */
+    public function getEmail()
+    {
+        return $this->email;
+    }
+
+    /**
+     * @param mixed|string $email
+     */
+    public function setEmail($email)
+    {
+        $this->email = $email;
+    }
+
+    /**
+     * @return mixed|string
+     */
+    public function getTelephone()
+    {
+        return $this->telephone;
+    }
+
+    /**
+     * @param mixed|string $telephone
+     */
+    public function setTelephone($telephone)
+    {
+        $this->telephone = $telephone;
+    }
+
+    /**
+     * @return mixed|string
+     */
+    public function getAddresse()
+    {
+        return $this->addresse;
+    }
+
+    /**
+     * @param mixed|string $addresse
+     */
+    public function setAddresse($addresse)
+    {
+        $this->addresse = $addresse;
+    }
+
+    /**
+     * @return bool|mixed
+     */
+    public function getBlocker()
+    {
+        return $this->blocker;
+    }
+
+    /**
+     * @param bool|mixed $blocker
+     */
+    public function setBlocker($blocker)
+    {
+        $this->blocker = $blocker;
+    }
+
+    /**
+     * @return bool|mixed
+     */
+    public function getSupprimer()
+    {
+        return $this->supprimer;
+    }
+
+    /**
+     * @param bool|mixed $supprimer
+     */
+    public function setSupprimer($supprimer)
+    {
+        $this->supprimer = $supprimer;
+    }
+
+
 }

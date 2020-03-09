@@ -31,7 +31,7 @@
 <script src="js/jquery-3.4.1.slim.min.js"></script>
 
 <style type="text/css">
-    <?php
+  <?php
   require "css/style.css";
     require "css/bootstrap.min.css";
     require "css/fontawesome.min.css";

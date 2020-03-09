@@ -3,7 +3,7 @@
 namespace PHPMVC\controllers;
 
 session_start();
-use PDO;
+
 use PHPMVC\LIB\Helper;
 use PHPMVC\Model\TransportateurModel;
 use PHPMVC\Model\TraductionModel;

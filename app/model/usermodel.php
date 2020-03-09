@@ -33,17 +33,14 @@ class UserModel extends AbstractModel
         if ($exist) {
             $this->id = $row['id'];
             $this->nom = $row['nom'];
-            $this->prenom = $row['prenom'];
-            $this->password = $row['password'];
+            $this->mot_de_passe = $row['mot_de_passe'];
             $this->email = $row['email'];
             $this->adresse = $row['adresse'];
-            $this->phone = $row['phone'];
-            $this->blocker = (boolean) $row['blocker'];
-            $this->supprimer = (boolean) $row['supprimer'];
+            $this->telephone = $row['telephone'];
         } else {
             $this->nom = $row[0];
             $this->adresse = $row[1];
-            $this->$telephone = $row[2];
+            $this->telephone = $row[2];
             $this->email = $row[3];
             $this->mot_de_passe = sha1($row[4]);
         }
@@ -93,17 +90,16 @@ class UserModel extends AbstractModel
         return false;
 
     }
+
     public static function authenticate($email, $password)
     {
         self::getConnection();
-        $stmt = self::$conn->prepare(" SELECT *  FROM client WHERE password =:password AND email= :email");
+        $stmt = self::$conn->prepare(" SELECT *  FROM client WHERE mot_de_passe =:mot_de_passe AND email= :email");
         $stmt->bindParam('email', $email, \PDO::PARAM_STR);
-        $stmt->bindValue('password', sha1($password), \PDO::PARAM_STR);
+        $stmt->bindValue('mot_de_passe', sha1($password), \PDO::PARAM_STR);
         $stmt->execute();
         $count = $stmt->rowCount();
         $row = $stmt->fetch(\PDO::FETCH_ASSOC);
-        var_dump($row);
-
         if ($count == 1 && !empty($row)) {
             return $row;
         } 
@@ -155,6 +151,40 @@ class UserModel extends AbstractModel
     /**
      * @return mixed
      */
+    public function getNom()
+    {
+        return $this->nom;
+    }
+
+    /**
+     * @param mixed $nom
+     * @return UserModel
+     */
+    public function setNom($nom)
+    {
+        $this->nom = $nom;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getMotDePasse()
+    {
+        return $this->mot_de_passe;
+    }
+
+    /**
+     * @param string $mot_de_passe
+     */
+    public function setMotDePasse($mot_de_passe)
+    {
+        $this->mot_de_passe = $mot_de_passe;
+    }
+
+    /**
+     * @return mixed
+     */
     public function getId()
     {
         return $this->id;
@@ -166,54 +196,6 @@ class UserModel extends AbstractModel
     public function setId($id)
     {
         $this->id = $id;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getNom()
-    {
-        return $this->nom;
-    }
-
-    /**
-     * @param mixed $nom
-     */
-    public function setNom($nom)
-    {
-        $this->nom = $nom;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getPrenom()
-    {
-        return $this->prenom;
-    }
-
-    /**
-     * @param mixed $prenom
-     */
-    public function setPrenom($prenom)
-    {
-        $this->prenom = $prenom;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getPassword()
-    {
-        return $this->password;
-    }
-
-    /**
-     * @param mixed $password
-     */
-    public function setPassword($password)
-    {
-        $this->password = $password;
     }
 
     /**
@@ -235,17 +217,17 @@ class UserModel extends AbstractModel
     /**
      * @return mixed
      */
-    public function getPhone()
+    public function getTelephone()
     {
-        return $this->phone;
+        return $this->telephone;
     }
 
     /**
-     * @param mixed $phone
+     * @param mixed $telephone
      */
-    public function setPhone($phone)
+    public function setTelephone($telephone)
     {
-        $this->phone = $phone;
+        $this->telephone = $telephone;
     }
 
     /**
@@ -264,36 +246,5 @@ class UserModel extends AbstractModel
         $this->adresse = $adresse;
     }
 
-    /**
-     * @return bool|mixed
-     */
-    public function getBlocker()
-    {
-        return $this->blocker;
-    }
-
-    /**
-     * @param bool|mixed $blocker
-     */
-    public function setBlocker($blocker)
-    {
-        $this->blocker = $blocker;
-    }
-
-    /**
-     * @return bool
-     */
-    public function isSuppimer()
-    {
-        return $this->suppimer;
-    }
-
-    /**
-     * @param bool $suppimer
-     */
-    public function setSuppimer($suppimer)
-    {
-        $this->suppimer = $suppimer;
-    }
 
 }
