@@ -1,11 +1,12 @@
 <?php
 namespace PHPMVC\Model;
 
-use PHPMVC\Model\AbstractModel;
 use PHPMVC\Lib\Database\DatabaseHandler;
+use PHPMVC\Model\AbstractModel;
 
-class MarchendiseModel extends AbstractModel{
-   /*-------------- attributs d'un transportateur --------------------*/
+class MarchendiseModel extends AbstractModel
+{
+    /*-------------- attributs d'un transportateur --------------------*/
     private $id;
     private $description = "";
     private $lieu_depart = "";
@@ -14,14 +15,14 @@ class MarchendiseModel extends AbstractModel{
     private $demande_speciale = null;
     private $volume = "0";
     private $poids = "0";
-    private $id_client =-1 ;
-    private $id_transportatuer = null ; 
-    private $date_arrive ;
+    private $id_client = -1;
+    private $id_transportatuer = null;
+    private $date_arrive;
     private $date_depart;
-    private $tarif  = null;
+    private $tarif = null;
     private $done = false;
     /*-----------------------------------------------------------------*/
-    
+
     private static $conn;
     protected static $primaryKey = 'id';
     protected static $tableName = 'marchendise';
@@ -34,7 +35,7 @@ class MarchendiseModel extends AbstractModel{
         'demande_speciale' => self::DATA_TYPE_STR,
         'volume' => self::DATA_TYPE_STR,
         'poids' => self::DATA_TYPE_STR,
-        'date_arrive' => self::DATA_TYPE_DATE ,
+        'date_arrive' => self::DATA_TYPE_DATE,
         'date_depart' => self::DATA_TYPE_DATE,
         'id_client' => self::DATA_TYPE_INT,
         'id_transportatuer ' => self::DATA_TYPE_INT,
@@ -42,21 +43,25 @@ class MarchendiseModel extends AbstractModel{
         'done' => self::DATA_TYPE_BOOL,
     );
 
-
-    
-    public function __construct($row, $exist=true) /* after database request */
+    public function __construct($row, $exist = true) /* after database request */
     {
         if ($exist) {
-            $this->id = $row['id'];
-            $this->nom = $row['nom'];
-            $this->mot_de_passe = $row['mot_de_passe'];
-            $this->email = $row['email'];
-            $this->addresse = $row['addresse'];
-            $this->telephone = $row['telephone'];
-            $this->blocker = $row['blocker'];
-            $this->supprimer = $row['supprimer'];
+            $this->description = $row["description"];
+            $this->lieu_depart = $row["lieu_depart"];
+            $this->lieu_arrive = $row["lieu_arrive"];
+            $this->photos = $row["photos"];
+            $this->demande_speciale = $row["demande_speciale"];
+            $this->volume = $row["volume"];
+            $this->poids = $row["poids"];
+            $this->id_client = $row["id_client"];
+            $this->date_depart = $row["date_depart"];
+            $this->date_arrive = $row["date_arrive"];
+            $this->done =$row["done"];
+            $this->tarif = $row["tarif"] ; 
+            $this->id_transportatuer = $row["id_transportatuer"];
+            $this->id = $row["id"];
         } else {
-                    
+
             $this->description = $row[0];
             $this->lieu_depart = $row[1];
             $this->lieu_arrive = $row[2];
@@ -64,10 +69,10 @@ class MarchendiseModel extends AbstractModel{
             $this->demande_speciale = $row[4];
             $this->volume = $row[5];
             $this->poids = $row[6];
-            $this->id_client =$row[7];
+            $this->id_client = $row[7];
             $this->date_depart = $row[8];
             $this->date_arrive = $row[9];
-            
+
         }
     }
 
@@ -92,31 +97,32 @@ class MarchendiseModel extends AbstractModel{
     public function create()
     {
         self::getConnection();
-        $sql = 'INSERT INTO ' . static::$tableName . ' (id , description , lieu_depart, lieu_arrive , photos , demande_speciale , volume , poids , date_arrive , date_depart , id_client , id_transportatuer , tarif ) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?);' ;
+        $sql = 'INSERT INTO ' . static::$tableName . ' (id , description , lieu_depart, lieu_arrive , photos , demande_speciale , volume , poids , date_arrive , date_depart , id_client , id_transportatuer , tarif ) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?);';
         $stmt = self::$conn->prepare($sql);
-         $obj = array(
-                    $this->id,
-                    $this->description ,
-                    $this->lieu_depart ,
-                    $this->lieu_arrive ,
-                    $this->photos ,
-                    $this->demande_speciale ,
-                    $this->volume ,
-                    $this->poids ,
-                    $this->date_depart ,
-                    $this->date_arrive ,
-                    $this->id_client ,
-                    $this->id_transportatuer ,
-                    $this->tarif ,
-                    
-         );
+        $obj = array(
+            $this->id,
+            $this->description,
+            $this->lieu_depart,
+            $this->lieu_arrive,
+            $this->photos,
+            $this->demande_speciale,
+            $this->volume,
+            $this->poids,
+            $this->date_depart,
+            $this->date_arrive,
+            $this->id_client,
+            $this->id_transportatuer,
+            $this->tarif,
+
+        );
         if ($stmt->execute($obj)) {
+            
             $this->{static::$primaryKey} = DatabaseHandler::factory()->lastInsertId();
             return true;
         }
         return false;
     }
-    
+
     private function prepareValues(\PDOStatement &$stmt)
     {
         foreach (static::$tableSchema as $columnName => $type) {
@@ -146,5 +152,53 @@ class MarchendiseModel extends AbstractModel{
         }
     }
 
+    /**
+     * @return mixed|string
+     */
+    public function getDescription()
+    {
+        return $this->description;
+    }
+
+    /**
+     * @return mixed|string
+     */
+    public function getLieuDepart()
+    {
+        return $this->lieu_depart;
+    }
+
+    /**
+     * @return mixed|string
+     */
+    public function getLieuArrive()
+    {
+        return $this->lieu_arrive;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDateArrive()
+    {
+        return $this->date_arrive;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDateDepart()
+    {
+        return $this->date_depart;
+    }
+
+    /**
+     * @return mixed|null
+     */
+    public function getTarif()
+    {
+        return $this->tarif;
+    }
+   
 
 }

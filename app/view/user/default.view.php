@@ -48,9 +48,9 @@
     	<div class="col-sm-9">
           
           <ul class="nav nav-tabs" id="myTab">
-            <li class="active"><a href="#home" data-toggle="tab">Ultimo Trattamento</a></li>
-            <li><a href="#messages" data-toggle="tab">Ajouter une marchendise</a></li>
-            <li><a href="#settings" data-toggle="tab">Modifica utente</a></li>
+            <li class="active"><a href="#home" data-toggle="tab">Mes marchndise</a></li>
+            <li><a href="#messages" data-toggle="tab">Les trajets</a></li>
+            <li><a href="#settings" data-toggle="tab">Les reponses</a></li>
           </ul>
               
           <div class="tab-content">
@@ -59,25 +59,29 @@
                 <table class="table table-hover">
                   <thead>
                     <tr>
-                      <th>Data</th>
-                      <th>Trattamento</th>
-                      <th>Prodotti utilizzati</th>
-                      <th>Colori utilizzati</th>
-                      <th>Note</th>
-                      <th>Modifica</th>
+                      <th>Discription</th>
+                      <th>lieu du depart</th>
+                      <th>date de depart</th>
+                      <th>lieu d'arrive</th>
+                      <th>date arrive</th>
+                      <th>tarif</th>
+                      <th></th>
                     </tr>
                   </thead>
                   <tbody id="items">
-                    <tr data-toggle="collapse" data-target="#demo1" class="accordion-toggle ">
-                      <td>10.05.2017</td>
-                      <td>MASSAGGIO schiena</td>
-                      <td>usato loreal</td>
-                      <td>colore rosso</td>
-                      <td>il cliente preferisce il verde</td>
+                  <?php foreach ($this->_data["marchendise"] as $march ){ 
+                    echo '<tr data-toggle="collapse" data-target="#demo1" class="accordion-toggle ">  
+                      <td>'.$march->getDescription().'</td>
+                      <td>'.$march->getLieuDepart().'</td>
+                      <td>'.$march->getDateArrive().'</td>
+                      <td>'.$march->getLieuArrive().'</td>
+                      <td>'.$march->getDateDepart().'</td>
+                      <td>'.$march->getTarif().'</td>
                       <td><button type="button" data-toggle="modal" data-target="#edit" data-uid="1" class="update btn btn-warning btn-sm"><span class="glyphicon glyphicon-pencil"></span></button></td>
                       <td><button class="btn btn-default btn-xs"><span class="glyphicon glyphicon-eye-open"></span></button></td>
                     </tr>
-                    
+                    ';
+                  } ?>
                     <tr>
             <td colspan="12" class="hiddenRow"><div class="accordian-body collapse" id="demo1"> 
             <form method="POST" name="ajoutr-marchendise"> 

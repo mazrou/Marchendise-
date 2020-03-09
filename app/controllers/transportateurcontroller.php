@@ -22,7 +22,7 @@ class TransportateurController extends AbstractController
             if ($result) {
                 $transportateur = new TransportateurModel($result);
                 $_SESSION['Transportateur'] = [$transportateur];
-                $this->redirect('/web/public/index');
+                $this->redirect('/web/public/transportateur');
             } else {
                 $this->redirect('/web/public/transportateur/connexion');
             }
@@ -32,11 +32,8 @@ class TransportateurController extends AbstractController
 
     public function defaultAction()
     {
-        $user = UserModel::getAll();
-        foreach ($user as $us) {
-            var_dump($us);
-        }
         $this->_view();
+
     }
 
    /* public function addAction()

@@ -29,11 +29,11 @@ class UserController extends AbstractController
               
            );
            $marchendise = new MarchendiseModel($obj, false) ; 
-
            if($marchendise->create()){
-             
+               array_push( $this->_data["marchendise"] ,$marchendise);
            }
         }
+        $this->_data["marchendise"] = $_SESSION["client"][0]->getMarchendise();
         $this->_view();
     }
 
@@ -48,9 +48,11 @@ class UserController extends AbstractController
                 $_POST['password'],
             );
             $client = new UserModel($obj, false);
-          
-            if($client->create())
+           
+            if($client->create()){
                 $this->redirect('/web/public/');
+            }
+              
         }
         $this->_view();
 
