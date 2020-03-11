@@ -85,37 +85,44 @@
             <td colspan="12" class="hiddenRow"><div class="accordian-body collapse" id="demo1"> 
             <form method="POST" name="ajoutr-marchendise"> 
             <table class="table table-striped">
-                  <h1>Ajouter une marchendise</h1>
+                  <h1>Declarer un trajet</h1>
                       
                      <tbody>
 					<tr id='addr0'>
 						<td>
 						
 						</td>
+            
 						<td>
-						<textarea type="text" name='discription'  placeholder='discription' class="form-control"></textarea>
-						</td>
-						<td>
-						<input type="text" name='lieu-depart' placeholder='Lieu du depart' class="form-control"/>
-						</td>
-						<td>
+            	<input type="text" name='lieu-depart2' placeholder="Lieu depart " class="form-control"/>
 						<input type="text" name='lieu-arrive' placeholder="Lieu d'arrive " class="form-control"/>
 						</td>
+						<td>
+						<textarea type="text" name='arret'  placeholder='lieux d’arrêts entre le départ et l’arrivée' class="form-control"></textarea>
+						</td>
+					
           </tr>
           <tr id='addr3'>
 						<td>
 						
 						</td>
 						<td>
-						<input type="date" name='date-depart' placeholder='date du depart' class="form-control"/>
+              <label for ="date1">Date de depart</label>
+						<input type="date" id="date1" name='date-depart' placeholder='date du depart' class="form-control"/>
 					 </td>
 						<td>
-						<input type="date" name='date-arrive' placeholder="date d'arrive" class="form-control"/>
+              <label for ="date2">Date d'arrive</label>
+						<input type="date" id ="date2"name='date-arrive' placeholder="date d'arrive" class="form-control"/>
+            </td>
+            <td>
+              <label for ="nbkilo">Nombre de kilometre</label>
+						<input type="number" id="nbkilo" name='nb-kilomettre' placeholder="nombre de kilomettre" class="form-control"/>
 						</td>
 					</tr>
           <tr id='addr1'>
             <td>
-						<input type="number" name='volume' placeholder='Volume ' class="form-control"/>
+               <label for ="vol">Volume maximale</label>
+						<input type="number" id ="vol" name='volume' placeholder='Volume ' class="form-control"/>
             </td>
             <td>
 						<select name="cat-volum">
@@ -123,22 +130,56 @@
            </select>
             </td>
             <td>
+              <label for ="poid">Poid maximale</label>
 						<input type="number" name='poid' placeholder='Poid en kg' class="form-control"/>
             </td>
             <td>
-						<select name="cat-poid">
+              
+						<select name="cat-poid" >
                 <option value="kg" >kg</option>     
            </select></td>
           </tr>
+           <tr id='addr1'>
+            <td>
+               <label for ="vol">Voyage regulier</label>
+               	<select name="regulier">
+                   <option value="0">NON</option>   
+                    <option value="1">OUI</option>   
+               </select>
+          </td>
+          <td>
+            
+              <label for ="date3">Date de retoure</label>
+						<input type="date" id ="date2"name='date-retoure'  class="form-control"/>
+          </td>
+          <td>
+               <label for ="number">frequence de voyage</label>
+						<input type="number" id ="date2"name='frq'  class="form-control"/>
+          </td>
+          <td>
+               	<select name="frequen">
+                   <option value="sem">Par semaine</option>   
+                    <option value="moi">Par mois</option>   
+                    <option value="jour">Par jour</option>   
+               </select>
+          </td>
+          
+          </tr>
           <tr>
             <td>
-              <textarea type = "text" name = "demmande-speaciale" placeholder="demande speciale" class="form-control"></textarea>
-            </td>
+            
+              <label for ="date4">Date de Voyage</label>
+						<input type="date" id ="date4"name='date-voyage'  class="form-control"/>
+          </td>
             <td>
-              <label for="mesimage">Ajouter des photos</label>
-              <input type="file" id="mesimages" name="photos">
-            </td>
+              <label >Moyen de transport</label>
+               <input type="text" id ="date4"name='moyen'  class="form-control"/></td>
+                <label >Devis</label>
+             	<input type="number" id ="date4"name='devis'  class="form-control"/></td>
+       
           </tr>
+          
+             
 				</tbody>
 				
                  </table>

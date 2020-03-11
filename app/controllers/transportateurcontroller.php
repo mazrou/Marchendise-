@@ -5,15 +5,13 @@ namespace PHPMVC\controllers;
 session_start();
 
 use PHPMVC\LIB\Helper;
+use PHPMVC\Model\TrajetModel;
 use PHPMVC\Model\TransportateurModel;
-use PHPMVC\Model\TraductionModel;
-use PHPMVC\Model\UserModel;
 
 class TransportateurController extends AbstractController
 {
 
     use Helper;
-
 
     public function connexionAction()
     {
@@ -22,6 +20,7 @@ class TransportateurController extends AbstractController
             if ($result) {
                 $transportateur = new TransportateurModel($result);
                 $_SESSION['Transportateur'] = [$transportateur];
+                //var_dump($transportateur);
                 $this->redirect('/web/public/transportateur');
             } else {
                 $this->redirect('/web/public/transportateur/connexion');
@@ -32,30 +31,60 @@ class TransportateurController extends AbstractController
 
     public function defaultAction()
     {
-        $this->_view();
-
-    }
-
-   /* public function addAction()
-    {
-        if (isset($_POST['regester'])) {
+    
+        if ($_POST["ajouter"]) {
             $obj = array(
-                $_POST['nom'],
-                $_POST['prenom'],
-                $_POST['adresse'],
-                $_POST['phone'],
-                $_POST['email'],
-                $_POST['password'],
+                $_POST['lieu-depart2'],
+                $_POST['lieu-arrive'],
+                $_POST['arret'],
+                $_POST['date-depart'],
+                $_POST['date-arrive'],
+                $_POST['nb-kilomettre'],
+                $_POST['volume'] . $_POST['cat-volum'],
+                $_POST['poid'] . $_POST['cat-poid'],
+                $_POST['regulier'],
+                $_POST['date-retoure'],
+                $_POST['frq'] . $_POST['frequen'],
+                $_POST['date-voyage'],
+                $_POST['moyen'],
+                $_POST['devis'],
+                $_SESSION['Transportateur'][0]->getId(),
+                false,
             );
-            $transportateur = new TransportateurModel($obj, false);
-            $transportateur->create();
-            $this->redirect('/web/public/');
+           //  var_dump($obj[12]);
+
+            $trajet = new TrajetModel($obj, false);
+            //var_dump($trajet);
+            if ($trajet->create()) {
+                var_dump("mchaaaaaaaaaaat");
+            }
 
         }
+
         $this->_view();
 
     }
-    */
+
+    /* public function addAction()
+    {
+    if (isset($_POST['regester'])) {
+    $obj = array(
+    $_POST['nom'],
+    $_POST['prenom'],
+    $_POST['adresse'],
+    $_POST['phone'],
+    $_POST['email'],
+    $_POST['password'],
+    );
+    $transportateur = new TransportateurModel($obj, false);
+    $transportateur->create();
+    $this->redirect('/web/public/');
+
+    }
+    $this->_view();
+
+    }
+     */
 
     public function loginAction()
     {
@@ -71,5 +100,4 @@ class TransportateurController extends AbstractController
         $this->_view();
     }
 
-    
 }
