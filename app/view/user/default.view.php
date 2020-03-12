@@ -172,20 +172,29 @@
                 <table class="table table-hover">
                   <thead>
                     <tr>
-                      <th>Data</th>
-                      <th>Servizio</th>
-                      <th>Modifica</th>
+                      <th>Moyen</th>
+                      <th>lieu du depart</th>
+                      <th>date de depart</th>
+                      <th>lieu d'arrive</th>
+                      <th>date arrive</th>
+                      <th>Devis</th>
                     </tr>
                   </thead>
                   <tbody id="items">
-                    <tr>
-                      <td>10.05.2017</td>
-                      <td>MASSAGGIO schiena</td>
-                     
+                    
+                       <?php
+                  foreach ($this->_data["trajet"] as $march) {
+                   echo '<tr data-toggle="collapse" data-target="#demo1" class="accordion-toggle ">
+                      <td>' . $march->getMoyenTranspor() . '</td>
+                      <td>' . $march->getLieuDepart() . '</td>
+                      <td>' . $march->getDateDepart() . '</td>
+                      <td>' . $march->getLieuArrive() . '</td>
+                      <td>' . $march->getDateArrive() . '</td>
+                      <td>' . $march->getDevis() . '</td>
                       <td><button type="button" data-toggle="modal" data-target="#edit" data-uid="1" class="update btn btn-warning btn-sm"><span class="glyphicon glyphicon-pencil"></span></button></td>
-                      
-                      
                     </tr>
+                    ';
+                      }?>  
                   </tbody>
                 </table>
                 </div>

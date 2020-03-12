@@ -7,6 +7,9 @@ use PDO;
 use PHPMVC\LIB\Helper;
 use PHPMVC\Model\MarchendiseModel;
 use PHPMVC\Model\UserModel;
+use PHPMVC\Model\TrajetModel;
+
+
 
 class UserController extends AbstractController
 {
@@ -33,6 +36,7 @@ class UserController extends AbstractController
                array_push( $this->_data["marchendise"] ,$marchendise);
            }
         }
+        $this->_data["trajet"]=TrajetModel::getTrajet();
         $this->_data["marchendise"] = $_SESSION["client"][0]->getMarchendise();
         $this->_view();
     }
