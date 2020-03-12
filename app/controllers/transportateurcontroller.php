@@ -51,15 +51,17 @@ class TransportateurController extends AbstractController
                 $_SESSION['Transportateur'][0]->getId(),
                 false,
             );
-           //  var_dump($obj[12]);
-
+           
+     
             $trajet = new TrajetModel($obj, false);
-            //var_dump($trajet);
+           
             if ($trajet->create()) {
-                var_dump("mchaaaaaaaaaaat");
+               $this->redirect('/web/public/transportateur');
             }
 
         }
+        $this->_data['trajet'] = $_SESSION['Transportateur'][0]->getTrajet();
+    
 
         $this->_view();
 

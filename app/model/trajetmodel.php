@@ -50,49 +50,50 @@ class TrajetModel extends AbstractModel
         'lieu_intermediare' => self::DATA_TYPE_STR,
         'date_voyage' => self::DATA_TYPE_DATE,
         'done' => self::DATA_TYPE_BOOL,
-        
 
     );
 
     public function __construct($row, $exist = true) /* after database request */
     {
         if ($exist) {
-            $this->description = $row["description"];
-            $this->lieu_depart = $row["lieu_depart"];
-            $this->lieu_arrive = $row["lieu_arrive"];
-            $this->photos = $row["photos"];
-            $this->demande_speciale = $row["demande_speciale"];
-            $this->volume = $row["volume"];
-            $this->poids = $row["poids"];
-            $this->id_client = $row["id_client"];
-            $this->date_depart = $row["date_depart"];
-            $this->date_arrive = $row["date_arrive"];
-            $this->done = $row["done"];
-            $this->tarif = $row["tarif"];
-            $this->id_transportatuer = $row["id_transportatuer"];
-            $this->id = $row["id"];
+            $this->id = $row['id'];
+            $this->lieu_depart = $row['lieu_depart'];
+            $this->lieu_arrive = $row['lieu_arrive'];
+            $this->lieu_intermediare = $row['lieu_intermediare'];
+            $this->date_depart = $row['date_depart'];
+            $this->date_arrive = $row['date_arrive'];
+            $this->kilo_metre =  $row['kilo_metre'];
+            $this->volume = $row['volume'];
+            $this->poids = $row['poids'];
+            $this->regulier =  $row['regulier'];
+            $this->date_retour = $row['date_retour'];
+            $this->frequence = $row['frequence'];
+            $this->date_voyage = $row['date_voyage'];
+            $this->moyen_transpor = $row['moyen_transpor'];
+            $this->devis =  $row['devis'];
+            $this->done = $row['done'];
+            $this->id_client =$row['id_client'];
+            $this->id_transportatuer =  $row['id_transportatuer'];
+
         } else {
             $this->lieu_depart = $row[0];
             $this->lieu_arrive = $row[1];
             $this->lieu_intermediare = $row[2];
             $this->date_depart = $row[3];
             $this->date_arrive = $row[4];
-            $this->kilo_metre = (int)$row[5];
+            $this->kilo_metre = (int) $row[5];
             $this->volume = $row[6];
             $this->poids = $row[7];
-            $this->regulier = (int)$row[8];
+            $this->regulier = (int) $row[8];
             $this->date_retour = $row[9];
             $this->frequence = $row[10];
             $this->date_voyage = $row[11];
             $this->moyen_transpor = $row[12];
             $this->devis = (int) $row[13];
-
-            $this->id_transportatuer = (int)$row[14];
+            $this->id_transportatuer = (int) $row[14];
         }
-        var_dump($row[8]);
+     
 
-        
-        
     }
 
     private function buildNameParametersSQL()
@@ -117,24 +118,24 @@ class TrajetModel extends AbstractModel
     {
         self::getConnection();
         $sql = 'INSERT INTO ' . static::$tableName . ' SET
-                                         lieu_depart="'.$this->lieu_depart.'",
-                                         lieu_arrive ="'.$this->lieu_arrive.'",
-                                         lieu_intermediare="'.$this->lieu_intermediare.' ",
-                                         date_arrive ="'.$this->date_arrive.'", 
-                                         date_depart="'.$this->date_depart.'" , 
-                                         kilo_metre ='.$this->kilo_metre.',
-                                         volume ="'.$this->volume.'",
-                                         poids ="'.$this->poids.' ",
-                                         regulier ='.$this->regulier.',
-                                         frequence="'.$this->frequence.'",
-                                         date_voyage="'.$this->date_voyage.'",
-                                         devis='.$this->devis.',
-                                         moyen_transpor="'.$this->moyen_transpor.'",
-                                         id_transportatuer='.$this->id_transportatuer.';';
-                                         $stmt = self::$conn->prepare($sql);
-                                        
+                                         lieu_depart="' . $this->lieu_depart . '",
+                                         lieu_arrive ="' . $this->lieu_arrive . '",
+                                         lieu_intermediare="' . $this->lieu_intermediare . ' ",
+                                         date_arrive ="' . $this->date_arrive . '",
+                                         date_depart="' . $this->date_depart . '" ,
+                                         kilo_metre =' . $this->kilo_metre . ',
+                                         volume ="' . $this->volume . '",
+                                         poids ="' . $this->poids . ' ",
+                                         regulier =' . $this->regulier . ',
+                                         frequence="' . $this->frequence . '",
+                                         date_voyage="' . $this->date_voyage . '",
+                                         devis=' . $this->devis . ',
+                                         moyen_transpor="' . $this->moyen_transpor . '",
+                                         id_transportatuer=' . $this->id_transportatuer . ';';
+        $stmt = self::$conn->prepare($sql);
+
         $obj = array(
-            $this->id ,
+            $this->id,
             $this->lieu_depart,
             $this->lieu_arrive,
             $this->lieu_intermediare,
@@ -151,10 +152,9 @@ class TrajetModel extends AbstractModel
             $this->moyen_transpor,
             $this->id_transportatuer,
             $this->id_client,
-            $this->done ,
-
+            $this->done,
         );
-        var_dump($stmt);
+
         if ($stmt->execute($obj)) {
 
             $this->{static::$primaryKey} = DatabaseHandler::factory()->lastInsertId();
@@ -171,7 +171,7 @@ class TrajetModel extends AbstractModel
                 $stmt->bindValue(":{$columnName}", $sanitizedValue);
             } else {
                 $stmt->bindValue(":{$columnName}", $this->$columnName, $type);
-                var_dump($type);
+               
 
             }
         }
@@ -193,11 +193,19 @@ class TrajetModel extends AbstractModel
     }
 
     /**
-     * @return mixed|string
+     * @return mixed
      */
-    public function getDescription()
+    public function getId()
     {
-        return $this->description;
+        return $this->id;
+    }
+
+    /**
+     * @param mixed $id
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
     }
 
     /**
@@ -209,11 +217,203 @@ class TrajetModel extends AbstractModel
     }
 
     /**
+     * @param mixed|string $lieu_depart
+     */
+    public function setLieuDepart($lieu_depart)
+    {
+        $this->lieu_depart = $lieu_depart;
+    }
+
+    /**
      * @return mixed|string
      */
     public function getLieuArrive()
     {
         return $this->lieu_arrive;
+    }
+
+    /**
+     * @param mixed|string $lieu_arrive
+     */
+    public function setLieuArrive($lieu_arrive)
+    {
+        $this->lieu_arrive = $lieu_arrive;
+    }
+
+    /**
+     * @return int
+     */
+    public function getKiloMetre()
+    {
+        return $this->kilo_metre;
+    }
+
+    /**
+     * @param int $kilo_metre
+     */
+    public function setKiloMetre($kilo_metre)
+    {
+        $this->kilo_metre = $kilo_metre;
+    }
+
+    /**
+     * @return int
+     */
+    public function getDevis()
+    {
+        return $this->devis;
+    }
+
+    /**
+     * @param int $devis
+     */
+    public function setDevis($devis)
+    {
+        $this->devis = $devis;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDateRetour()
+    {
+        return $this->date_retour;
+    }
+
+    /**
+     * @param mixed $date_retour
+     */
+    public function setDateRetour($date_retour)
+    {
+        $this->date_retour = $date_retour;
+    }
+
+    /**
+     * @return bool|int
+     */
+    public function getRegulier()
+    {
+        return $this->regulier;
+    }
+
+    /**
+     * @param bool|int $regulier
+     */
+    public function setRegulier($regulier)
+    {
+        $this->regulier = $regulier;
+    }
+
+    /**
+     * @return int|mixed
+     */
+    public function getFrequence()
+    {
+        return $this->frequence;
+    }
+
+    /**
+     * @param int|mixed $frequence
+     */
+    public function setFrequence($frequence)
+    {
+        $this->frequence = $frequence;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getMoyenTranspor()
+    {
+        return $this->moyen_transpor;
+    }
+
+    /**
+     * @param mixed $moyen_transpor
+     */
+    public function setMoyenTranspor($moyen_transpor)
+    {
+        $this->moyen_transpor = $moyen_transpor;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getLieuIntermediare()
+    {
+        return $this->lieu_intermediare;
+    }
+
+    /**
+     * @param mixed $lieu_intermediare
+     */
+    public function setLieuIntermediare($lieu_intermediare)
+    {
+        $this->lieu_intermediare = $lieu_intermediare;
+    }
+
+    /**
+     * @return mixed|string
+     */
+    public function getVolume()
+    {
+        return $this->volume;
+    }
+
+    /**
+     * @param mixed|string $volume
+     */
+    public function setVolume($volume)
+    {
+        $this->volume = $volume;
+    }
+
+    /**
+     * @return mixed|string
+     */
+    public function getPoids()
+    {
+        return $this->poids;
+    }
+
+    /**
+     * @param mixed|string $poids
+     */
+    public function setPoids($poids)
+    {
+        $this->poids = $poids;
+    }
+
+    /**
+     * @return mixed|null
+     */
+    public function getIdClient()
+    {
+        return $this->id_client;
+    }
+
+    /**
+     * @param mixed|null $id_client
+     */
+    public function setIdClient($id_client)
+    {
+        $this->id_client = $id_client;
+    }
+
+    /**
+     * @return int
+     */
+    public function getIdTransportatuer()
+    {
+        return $this->id_transportatuer;
+    }
+
+    /**
+     * @param int $id_transportatuer
+     */
+    public function setIdTransportatuer($id_transportatuer)
+    {
+        $this->id_transportatuer = $id_transportatuer;
     }
 
     /**
@@ -225,6 +425,14 @@ class TrajetModel extends AbstractModel
     }
 
     /**
+     * @param mixed $date_arrive
+     */
+    public function setDateArrive($date_arrive)
+    {
+        $this->date_arrive = $date_arrive;
+    }
+
+    /**
      * @return mixed
      */
     public function getDateDepart()
@@ -233,11 +441,43 @@ class TrajetModel extends AbstractModel
     }
 
     /**
-     * @return mixed|null
+     * @param mixed $date_depart
      */
-    public function getTarif()
+    public function setDateDepart($date_depart)
     {
-        return $this->tarif;
+        $this->date_depart = $date_depart;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDateVoyage()
+    {
+        return $this->date_voyage;
+    }
+
+    /**
+     * @param mixed $date_voyage
+     */
+    public function setDateVoyage($date_voyage)
+    {
+        $this->date_voyage = $date_voyage;
+    }
+
+    /**
+     * @return bool|mixed
+     */
+    public function getDone()
+    {
+        return $this->done;
+    }
+
+    /**
+     * @param bool|mixed $done
+     */
+    public function setDone($done)
+    {
+        $this->done = $done;
     }
 
 }

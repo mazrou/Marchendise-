@@ -59,24 +59,31 @@
                 <table class="table table-hover">
                   <thead>
                     <tr>
-                      <th>Discription</th>
+                      <th>Moyen</th>
                       <th>lieu du depart</th>
                       <th>date de depart</th>
                       <th>lieu d'arrive</th>
                       <th>date arrive</th>
-                      <th>tarif</th>
+                      <th>Devis</th>
                       <th></th>
                     </tr>
                   </thead>
                   <tbody id="items">
     
-                    <tr data-toggle="collapse" data-target="#demo1" class="accordion-toggle ">  
-                      <td>'.$march->getDescription().'</td>
-                      <td>'.$march->getLieuDepart().'</td>
-                      <td>'.$march->getDateArrive().'</td>
-                      <td>'.$march->getLieuArrive().'</td>
-                      <td>'.$march->getDateDepart().'</td>
-                      <td>'.$march->getTarif().'</td>
+                     <?php 
+                     foreach ($this->_data["trajet"] as $march) {
+                      echo '<tr data-toggle="collapse" data-target="#demo1" class="accordion-toggle ">
+                      <td>' . $march->getMoyenTranspor() . '</td>
+                      <td>' . $march->getLieuDepart() . '</td>
+                      <td>' . $march->getDateDepart() . '</td>
+                      <td>' . $march->getLieuArrive() . '</td>
+                      <td>' . $march->getDateArrive() . '</td>
+                      <td>' . $march->getDevis() . '</td>
+                      <td><button type="button" data-toggle="modal" data-target="#edit" data-uid="1" class="update btn btn-warning btn-sm"><span class="glyphicon glyphicon-pencil"></span></button></td>
+                      <td><button class="btn btn-default btn-xs"><span class="glyphicon glyphicon-eye-open"></span></button></td>
+                    </tr>
+                    ';
+}?>
                 
                      <td><button type="button" data-toggle="modal" data-target="#edit" data-uid="1" class="update btn btn-warning btn-sm"><span class="glyphicon glyphicon-pencil"></span></button></td>
                       <td><button class="btn btn-default btn-xs"><span class="glyphicon glyphicon-eye-open"></span></button></td>

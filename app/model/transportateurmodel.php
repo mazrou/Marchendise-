@@ -81,7 +81,21 @@ class TransportateurModel extends AbstractModel
         }
         return false;
     }
-
+    public function getTrajet()
+    {
+        self::getConnection();
+        $sql = "SELECT * FROM trajet WHERE id_transportatuer = ".(int)$this->id;
+        $stmt = self::$conn->prepare($sql);
+        if ($stmt->execute()) {
+            $rows = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+            $marchendises = array();
+            foreach ($rows as $row) { 
+                array_push($marchendises , new TrajetModel($row ));
+            }
+            return $marchendises;
+        }
+        return null;
+    }
     public static function authenticate($email, $mot_de_passe)
     {
         self::getConnection();
@@ -108,7 +122,7 @@ class TransportateurModel extends AbstractModel
             }
         }
     }
-
+    
     private static function getConnection()
     {
         if (self::$conn == null) {
