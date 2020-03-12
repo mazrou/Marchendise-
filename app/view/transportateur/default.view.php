@@ -83,11 +83,8 @@
                       <td><button class="btn btn-default btn-xs"><span class="glyphicon glyphicon-eye-open"></span></button></td>
                     </tr>
                     ';
-}?>
+                     }?>
                 
-                     <td><button type="button" data-toggle="modal" data-target="#edit" data-uid="1" class="update btn btn-warning btn-sm"><span class="glyphicon glyphicon-pencil"></span></button></td>
-                      <td><button class="btn btn-default btn-xs"><span class="glyphicon glyphicon-eye-open"></span></button></td>
-                    </tr>
                     <tr>
             <td colspan="12" class="hiddenRow"><div class="accordian-body collapse" id="demo1"> 
             <form method="POST" name="ajoutr-marchendise"> 
@@ -218,21 +215,40 @@
               <div class="table-responsive">
                 <table class="table table-hover">
                   <thead>
-                    <tr>
-                      <th>Data</th>
-                      <th>Servizio</th>
-                      <th>Modifica</th>
+                  
+  
+                  <tr>
+                      <th>Description</th>
+                      <th>Lieu depart</th>
+                      <th>date depart</th>
+                      <th>Lieu arrive</th>
+                      <th>Date arrive</th>
+                      <th>tarif</th>
                     </tr>
                   </thead>
                   <tbody id="items">
-                    <tr>
-                      <td>10.05.2017</td>
-                      <td>MASSAGGIO schiena</td>
-                     
-                      <td><button type="button" data-toggle="modal" data-target="#edit" data-uid="1" class="update btn btn-warning btn-sm"><span class="glyphicon glyphicon-pencil"></span></button></td>
-                      
+                    <form method="POST">
+
+                  
+                    <?php 
+                   
+                    foreach ($this->_data['marchendise'] as $march) {
+                      echo '<tr data-toggle="collapse" data-target="#demo1" class="accordion-toggle ">
+                      <td>' . $march->getDescription() . '</td>
+                      <td>' . $march->getLieuDepart() . '</td>
+                      <td>' . $march->getDateArrive() . '</td>
+                      <td>' . $march->getLieuArrive() . '</td>
+                      <td>' . $march->getDateDepart() . '</td>
+                      <td> <input type="text" class="form-control" name="tarif" placeholder="tarif" title="Inserisci il nome"></td>
+                      <td><button name="submit1" type="button" data-toggle="modal" data-target="#edit" data-uid="1" class="update btn btn-warning btn-sm"><span class="glyphicon glyphicon-pencil"></span></button></td>
+                      <td><button class="btn btn-default btn-xs"><span class="glyphicon glyphicon-eye-open"></span></button></td>
+                    </tr>
+                    ';
+}?>
+
                       
                     </tr>
+                      </form>
                   </tbody>
                 </table>
                 </div>

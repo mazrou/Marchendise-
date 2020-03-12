@@ -169,6 +169,7 @@ class UserModel extends AbstractModel
         }
         return null;
     }
+      
     /**
      * @return mixed
      */

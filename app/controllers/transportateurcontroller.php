@@ -7,6 +7,7 @@ session_start();
 use PHPMVC\LIB\Helper;
 use PHPMVC\Model\TrajetModel;
 use PHPMVC\Model\TransportateurModel;
+use PHPMVC\Model\MarchendiseModel;
 
 class TransportateurController extends AbstractController
 {
@@ -51,7 +52,9 @@ class TransportateurController extends AbstractController
                 $_SESSION['Transportateur'][0]->getId(),
                 false,
             );
-           
+           if($_POST["submit1"]){
+               
+           }
      
             $trajet = new TrajetModel($obj, false);
            
@@ -60,6 +63,7 @@ class TransportateurController extends AbstractController
             }
 
         }
+        $this->_data['marchendise'] = MarchendiseModel::getMarchendise();
         $this->_data['trajet'] = $_SESSION['Transportateur'][0]->getTrajet();
     
 

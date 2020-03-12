@@ -75,7 +75,22 @@ class MarchendiseModel extends AbstractModel
 
         }
     }
+    public static function getMarchendise()
+    {
+        self::getConnection();
+        $sql = "SELECT * FROM marchendise ";
+        $stmt = self::$conn->prepare($sql);
+        if ($stmt->execute()) {
+            $rows = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+            $marchendises = array();
+            foreach ($rows as $row) {
+                array_push($marchendises, new MarchendiseModel($row));
+            }
+            return $marchendises;
+        }
+        return null;
 
+    }
     private function buildNameParametersSQL()
     {
         $namedParams = '';

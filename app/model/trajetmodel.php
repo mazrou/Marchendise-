@@ -62,18 +62,18 @@ class TrajetModel extends AbstractModel
             $this->lieu_intermediare = $row['lieu_intermediare'];
             $this->date_depart = $row['date_depart'];
             $this->date_arrive = $row['date_arrive'];
-            $this->kilo_metre =  $row['kilo_metre'];
+            $this->kilo_metre = $row['kilo_metre'];
             $this->volume = $row['volume'];
             $this->poids = $row['poids'];
-            $this->regulier =  $row['regulier'];
+            $this->regulier = $row['regulier'];
             $this->date_retour = $row['date_retour'];
             $this->frequence = $row['frequence'];
             $this->date_voyage = $row['date_voyage'];
             $this->moyen_transpor = $row['moyen_transpor'];
-            $this->devis =  $row['devis'];
+            $this->devis = $row['devis'];
             $this->done = $row['done'];
-            $this->id_client =$row['id_client'];
-            $this->id_transportatuer =  $row['id_transportatuer'];
+            $this->id_client = $row['id_client'];
+            $this->id_transportatuer = $row['id_transportatuer'];
 
         } else {
             $this->lieu_depart = $row[0];
@@ -92,7 +92,6 @@ class TrajetModel extends AbstractModel
             $this->devis = (int) $row[13];
             $this->id_transportatuer = (int) $row[14];
         }
-     
 
     }
 
@@ -162,7 +161,22 @@ class TrajetModel extends AbstractModel
         }
         return false;
     }
+   public static function getTrajet()
+    {
+        self::getConnection();
+        $sql = "SELECT * FROM trajet ";
+        $stmt = self::$conn->prepare($sql);
+        if ($stmt->execute()) {
+            $rows = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+            $marchendises = array();
+            foreach ($rows as $row) {
+                array_push($marchendises, new TrajetModel($row));
+            }
+            return $marchendises;
+        }
+        return null;
 
+    }
     private function prepareValues(\PDOStatement &$stmt)
     {
         foreach (static::$tableSchema as $columnName => $type) {
@@ -171,7 +185,6 @@ class TrajetModel extends AbstractModel
                 $stmt->bindValue(":{$columnName}", $sanitizedValue);
             } else {
                 $stmt->bindValue(":{$columnName}", $this->$columnName, $type);
-               
 
             }
         }

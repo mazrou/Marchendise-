@@ -96,6 +96,7 @@ class TransportateurModel extends AbstractModel
         }
         return null;
     }
+    
     public static function authenticate($email, $mot_de_passe)
     {
         self::getConnection();
