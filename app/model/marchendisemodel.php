@@ -87,7 +87,10 @@ class MarchendiseModel extends AbstractModel
                 array_push($marchendises, new MarchendiseModel($row));
             }
             return $marchendises;
+            
         }
+        var_dump($sql);
+
         return null;
 
     }

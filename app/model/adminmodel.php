@@ -9,9 +9,15 @@ class AdminModel extends AbstractModel
 
     private $nom;
     private $password;
-    private $listClients ;
-    private $listTraducteur ;
-    private $listTraduction ;
+   
+public static function authenticate($email, $password)
+    {
+        var_dump($email);
+        if($email=="admin" && $password=="admin"){
+            return true ;
+        }
+        return false;
+    }
 
     /**
      * @return mixed

@@ -17,7 +17,7 @@ class TransportateurModel extends AbstractModel
     private $blocker = false;
     private $supprimer = false;
     /*-----------------------------------------------------------------*/
-    
+
     private static $conn;
     protected static $primaryKey = 'id';
     protected static $tableName = 'transportateur';
@@ -32,7 +32,7 @@ class TransportateurModel extends AbstractModel
         'blocker' => self::DATA_TYPE_BOOL,
     );
 
-    public function __construct($row, $exist=true) /* after database request */
+    public function __construct($row, $exist = true) /* after database request */
     {
         if ($exist) {
             $this->id = $row['id'];
@@ -45,9 +45,9 @@ class TransportateurModel extends AbstractModel
             $this->supprimer = $row['supprimer'];
         } else {
             $this->nom = $row[0];
-            $this->addresse= $row[1];
+            $this->addresse = $row[1];
             $this->telephone = $row[2];
-            $this->email= $row[3];
+            $this->email = $row[3];
             $this->mot_de_passe = sha1($row[4]);
         }
     }
@@ -72,35 +72,49 @@ class TransportateurModel extends AbstractModel
 
     public function create()
     {
-        $sql = 'INSERT INTO ' . static::$tableName . ' SET ' . $this->buildNameParametersSQL();
-        $stmt = DatabaseHandler::factory()->prepare($sql);
-        $this->prepareValues($stmt);
-        if ($stmt->execute()) {
+        self::getConnection();
+        $sql = 'INSERT INTO transportateur (nom,addresse,telephone,email,mot_de_passe)   VALUES (?,?,?,?,?)';
+        $stmt = self::$conn->prepare($sql);
+        $obj = array($this->nom,
+            $this->addresse,
+            $this->telephone,
+            $this->email,
+            $this->mot_de_passe,
+        );
+
+        if ($stmt->execute($obj)) {
             $this->{static::$primaryKey} = DatabaseHandler::factory()->lastInsertId();
+            $sql = "SELECT id FROM transportateur WHERE email = '" . $this->email . "'";
+            $stmt = self::$conn->prepare($sql);
+            if ($stmt->execute()) {
+                $row = $stmt->fetch(\PDO::FETCH_ASSOC);
+                $this->id = $row["id"];
+            }
             return true;
         }
         return false;
+
     }
     public function getTrajet()
     {
         self::getConnection();
-        $sql = "SELECT * FROM trajet WHERE id_transportatuer = ".(int)$this->id;
+        $sql = "SELECT * FROM trajet WHERE id_transportatuer = " . (int) $this->id;
         $stmt = self::$conn->prepare($sql);
         if ($stmt->execute()) {
             $rows = $stmt->fetchAll(\PDO::FETCH_ASSOC);
             $marchendises = array();
-            foreach ($rows as $row) { 
-                array_push($marchendises , new TrajetModel($row ));
+            foreach ($rows as $row) {
+                array_push($marchendises, new TrajetModel($row));
             }
             return $marchendises;
         }
         return null;
     }
-    
+
     public static function authenticate($email, $mot_de_passe)
     {
         self::getConnection();
-        $stmt = self::$conn->prepare(" SELECT *  FROM ".static::$tableName ." WHERE mot_de_passe =:mot_de_passe AND email= :email");
+        $stmt = self::$conn->prepare(" SELECT *  FROM " . static::$tableName . " WHERE mot_de_passe =:mot_de_passe AND email= :email");
         $stmt->bindParam('email', $email, \PDO::PARAM_STR);
         $stmt->bindValue('mot_de_passe', sha1($mot_de_passe), \PDO::PARAM_STR);
         $stmt->execute();
@@ -123,7 +137,7 @@ class TransportateurModel extends AbstractModel
             }
         }
     }
-    
+
     private static function getConnection()
     {
         if (self::$conn == null) {
@@ -138,12 +152,12 @@ class TransportateurModel extends AbstractModel
             );
         }
     }
-   
+
     public function cryptPassword($password)
     {
         $this->password = sha1($password);
     }
-   
+
     public static function getBy($columns, $options = array())
     {
         $whereClauseColumns = array_keys($columns);
@@ -160,7 +174,7 @@ class TransportateurModel extends AbstractModel
 
         return static::get($sql, $options);
     }
-    
+
     public static function get($sql, $options = array())
     {
         $stmt = DatabaseHandler::factory()->prepare($sql);
@@ -205,6 +219,21 @@ class TransportateurModel extends AbstractModel
         return self::get('
                 SELECT * FROM ' . self::$tableName . ' WHERE Username = "' . $username . '"
             ');
+    }
+     public static function getAll()
+    {
+        self::getConnection();
+        $sql = "SELECT * FROM transportateur";
+        $stmt = self::$conn->prepare($sql);
+        if ($stmt->execute()) {
+            $rows = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+            $client = array();
+            foreach ($rows as $row) {
+                array_push($client, new TransportateurModel($row));
+            }
+            return $client;
+        }
+        return null;
     }
 
     /**
@@ -334,6 +363,5 @@ class TransportateurModel extends AbstractModel
     {
         $this->supprimer = $supprimer;
     }
-
 
 }

@@ -12,9 +12,8 @@
 
         require_once APP_PATH  . 'lib' . DS . 'autoload.php';
 
-
-
         $frontcontroller= new FrontController();
+
         $frontcontroller->dispatch();
 
 

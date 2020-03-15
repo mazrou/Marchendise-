@@ -40,6 +40,8 @@ class UserController extends AbstractController
         $this->_data["marchendise"] = $_SESSION["client"][0]->getMarchendise();
         $this->_view();
     }
+    
+
 
     public function addAction()
     {

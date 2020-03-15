@@ -12,7 +12,6 @@ class UserModel extends AbstractModel
     private $email;
     private $telephone;
     private $adresse;
-    
 
     private static $conn;
 
@@ -83,14 +82,14 @@ class UserModel extends AbstractModel
             $this->email,
             $this->mot_de_passe,
         );
-        
+
         if ($stmt->execute($obj)) {
             $this->{static::$primaryKey} = DatabaseHandler::factory()->lastInsertId();
-            $sql = "SELECT id FROM client WHERE email = '".$this->email."'";
+            $sql = "SELECT id FROM client WHERE email = '" . $this->email . "'";
             $stmt = self::$conn->prepare($sql);
-            if($stmt->execute()){
+            if ($stmt->execute()) {
                 $row = $stmt->fetch(\PDO::FETCH_ASSOC);
-                $this->id = $row["id"]; 
+                $this->id = $row["id"];
             }
             return true;
         }
@@ -109,7 +108,7 @@ class UserModel extends AbstractModel
         $row = $stmt->fetch(\PDO::FETCH_ASSOC);
         if ($count == 1 && !empty($row)) {
             return $row;
-        } 
+        }
         return false;
     }
 
@@ -154,22 +153,41 @@ class UserModel extends AbstractModel
                 SELECT * FROM ' . self::$tableName . ' WHERE Username = "' . $username . '"
             ');
     }
-     public function getMarchendise()
+    public function getMarchendise()
     {
         self::getConnection();
-        $sql = "SELECT * FROM marchendise WHERE id_client = ".(int)$this->id;
+        $sql = "SELECT * FROM marchendise WHERE id_client = " . (int) $this->id;
         $stmt = self::$conn->prepare($sql);
         if ($stmt->execute()) {
             $rows = $stmt->fetchAll(\PDO::FETCH_ASSOC);
             $marchendises = array();
-            foreach ($rows as $row) { 
-                array_push($marchendises , new MarchendiseModel($row ));
+            foreach ($rows as $row) {
+                array_push($marchendises, new MarchendiseModel($row));
             }
             return $marchendises;
         }
         return null;
     }
-      
+
+    public static function getAll()
+    {
+        self::getConnection();
+        $sql = "SELECT * FROM client";
+        $stmt = self::$conn->prepare($sql);
+        if ($stmt->execute()) {
+            $rows = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+            $client = array();
+            foreach ($rows as $row) {
+                array_push($client, new UserModel($row));
+            }
+            return $client;
+        }
+        return null;
+    }
+
+
+
+    
     /**
      * @return mixed
      */
@@ -267,6 +285,5 @@ class UserModel extends AbstractModel
     {
         $this->adresse = $adresse;
     }
-
 
 }
