@@ -48,10 +48,10 @@
   </button>
   <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
     <div class="navbar-nav bg-primary">
-      <a class="nav-item nav-link active" href="/web/public/">Home <span class="sr-only">(current)</span></a>
+      <a class="nav-item nav-link active" href="/web2/public/">Home <span class="sr-only">(current)</span></a>
       <a class="nav-item nav-link" href="#">Blog</a>
-      <a class="nav-item nav-link" href="/web/public/traducteur/add">Recrutement</a>
-      <a class="nav-item nav-link " href="/web/public/traducteur/list">Liste de traducteur</a>
+      <a class="nav-item nav-link" href="/web2/public/traducteur/add">Recrutement</a>
+      <a class="nav-item nav-link " href="/web2/public/traducteur/list">Liste de traducteur</a>
       <div style="margin-left:1300px">
       <a href="#" class="fa fa-facebook"></a>
       <a href="#" class="fa fa-instagram"></a>
@@ -82,13 +82,13 @@
 <br/><br/><br/><br/>
 
 <div id='divre' >
-    <button onclick="document.getElementById('id03').style.display='block'" class="btn btn-primary"style="width:60% margin:auto"><a href="/web/public/user/connexion"style="color: #1b1e21">Login utilisteur</a></button>
+    <button onclick="document.getElementById('id03').style.display='block'" class="btn btn-primary"style="width:60% margin:auto"><a href="/web2/public/user/connexion"style="color: #1b1e21">Login utilisteur</a></button>
 </br></br></br>
-    <button  onclick="document.getElementById('id01').style.display='block'" class="btn btn-primary"style="width:100%;margin:auto"><a href="/web/public/user/add"style="color: #1b1e21">Inscription utilisteur</a></button>
+    <button  onclick="document.getElementById('id01').style.display='block'" class="btn btn-primary"style="width:100%;margin:auto"><a href="/web2/public/user/add"style="color: #1b1e21">Inscription utilisteur</a></button>
     <br/><br/><br/>
     
     <br/><br/>
-    <button onclick="document.getElementById('id04').style.display='block'"class="btn btn-primary" style="width:100%;margin:auto"><a href="/web/public/traducteur/connexion" style="color: #1b1e21">login traducteur</a></button>
+    <button onclick="document.getElementById('id04').style.display='block'"class="btn btn-primary" style="width:100%;margin:auto"><a href="/web2/public/traducteur/connexion" style="color: #1b1e21">login traducteur</a></button>
 </div>
 
 <!--Accordion wrapper-------------------------------------------------------------------------------------------------------->

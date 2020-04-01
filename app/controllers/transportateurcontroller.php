@@ -22,9 +22,9 @@ class TransportateurController extends AbstractController
                 $transportateur = new TransportateurModel($result);
                 $_SESSION['Transportateur'] = [$transportateur];
                 //var_dump($transportateur);
-                $this->redirect('/web/public/transportateur');
+                $this->redirect('/web2/public/transportateur');
             } else {
-                $this->redirect('/web/public/transportateur/connexion');
+                $this->redirect('/web2/public/transportateur/connexion');
             }
         }
         $this->_view();
@@ -59,7 +59,7 @@ class TransportateurController extends AbstractController
             $trajet = new TrajetModel($obj, false);
            
             if ($trajet->create()) {
-               $this->redirect('/web/public/transportateur');
+               $this->redirect('/web2/public/transportateur');
             }
 
         }
@@ -84,7 +84,7 @@ class TransportateurController extends AbstractController
     );
     $transportateur = new TransportateurModel($obj, false);
     $transportateur->create();
-    $this->redirect('/web/public/');
+    $this->redirect('/web2/public/');
 
     }
     $this->_view();
@@ -100,7 +100,7 @@ class TransportateurController extends AbstractController
             array_push($this->_data, new TransportateurModel($row));
         }
         if (isset($_POST['logout'])) {
-            $this->redirect('/web/public/index');
+            $this->redirect('/web2/public/index');
         }
 
         $this->_view();

@@ -56,7 +56,7 @@ class UserController extends AbstractController
             $client = new UserModel($obj, false);
            
             if($client->create()){
-                $this->redirect('/web/public/');
+                $this->redirect('/web2/public/');
             }
               
         }
@@ -73,9 +73,9 @@ class UserController extends AbstractController
             if ($result) {
                 $client = new UserModel($result);
                 $_SESSION['client'] = [$client];   
-                $this->redirect('/web/public/user');
+                $this->redirect('/web2/public/user');
             } else {
-                 $this->redirect('/web/public/user/connexion');
+                 $this->redirect('/web2/public/user/connexion');
             }
         }
         $this->_view();
@@ -109,7 +109,7 @@ class UserController extends AbstractController
             $stmt->bindValue('id', $id, PDO::PARAM_INT);
             $stmt->execute();
 
-            $this->redirect('/web/public/index/login');
+            $this->redirect('/web2/public/index/login');
 
         }
         $this->_view();

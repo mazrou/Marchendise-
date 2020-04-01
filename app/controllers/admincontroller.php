@@ -20,9 +20,9 @@ class AdminController extends AbstractController
         if ($_POST['login']) {
             $result = AdminModel::authenticate($_POST['email'], $_POST['password']);
             if ($result) {
-                $this->redirect('/web/public/admin/main');
+                $this->redirect('/web2/public/admin/main');
             } else {
-                $this->redirect('/web/public/admin/');
+                $this->redirect('/web2/public/admin/');
             }
 
         }
@@ -46,7 +46,7 @@ class AdminController extends AbstractController
             var_dump($transportateur);
 
             if ($transportateur->create()) {
-                  $this->redirect('/web/public/admin/main');
+                  $this->redirect('/web2/public/admin/main');
 
             }
         }

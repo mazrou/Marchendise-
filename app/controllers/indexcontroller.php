@@ -56,7 +56,7 @@ class IndexController extends AbstractController
 
                 $traduction = new TraductionModel($obj, false);
                 $traduction->create();
-                $this->redirect('/web/public/index/client');
+                $this->redirect('/web2/public/index/client');
 
             } catch (\Exception $e) {
 
