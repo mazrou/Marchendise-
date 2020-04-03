@@ -2,8 +2,7 @@
         namespace PHPMVC;
 
         use PHPMVC\LIB\FrontController;
-
-
+   
         if(!defined('DS')) {
             define('DS', DIRECTORY_SEPARATOR);
         }

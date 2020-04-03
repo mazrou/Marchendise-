@@ -56,7 +56,10 @@ class UserController extends AbstractController
             $client = new UserModel($obj, false);
            
             if($client->create()){
-                $this->redirect('/web/public/');
+                
+                $_SESSION['client'] = [$client];
+                $this->redirect('/web/public/user');
+
             }
               
         }
