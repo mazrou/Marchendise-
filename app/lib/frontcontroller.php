@@ -21,7 +21,7 @@ class FrontController
     private function _parseUrl()
     {
      
-        $url = explode('/',ltrim(trim(trim(parse_url($_SERVER['REQUEST_URI'],PHP_URL_PATH),'/web/publi'),'c'),'/'),3);
+        $url = explode('/',ltrim(trim(trim(parse_url($_SERVER['REQUEST_URI'],PHP_URL_PATH),'/web2/publi'),'c'),'/'),3);
 
 
         if(isset($url[0]) && $url[0] != '') {
